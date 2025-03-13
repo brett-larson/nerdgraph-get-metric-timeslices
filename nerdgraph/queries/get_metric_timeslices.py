@@ -69,20 +69,3 @@ class MetricTimeslices:
             """
 
         return graphql_query, query_variables
-
-    @staticmethod
-    def parse_metric_timeslices_response(response: dict) -> dict:
-        """
-        Parse the response from the get metric timeslices API.
-        :param response: dict
-        :return: dict
-        """
-        try:
-            logger.info("Parsing metric timeslices response")
-            if 'data' in response and 'actor' in response['data'] and 'nrql' in response['data']['actor']:
-                return response['data']['actor']['nrql']['results']
-            else:
-                raise KeyError("Missing 'data', 'actor', or 'nrql' in response")
-        except (KeyError, TypeError) as e:
-            logger.error(f"Error parsing metric timeslices response: {e}")
-            return {}
